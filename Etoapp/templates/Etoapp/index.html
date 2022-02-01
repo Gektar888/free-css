@@ -50,7 +50,8 @@
                             <li><a href="#about">About</a></li>
                             <li><a href="#taxis">Taxi</a></li>
                             <li><a href="#booking">Booking</a></li>
-                            <li><a href="#contact">Contact Us</a></li>
+                            <li><a href="{% url 'car' %}">add</a></li>
+                            <li><a href="contact">Contact Us</a></li>
                             <li><a href="#"><img src="{% static 'images/search-icon.png'%}"></a></li>
                             <div id="myNav" class="overlay">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -92,20 +93,16 @@
             <div class="input_main">
               <div class="container">
                 <h2 class="request_text">Your everyday travel partner</h2>
-                <form action="/action_page.php">
-                <div class="form-group">
-                  <input type="text" class="email-bt" placeholder="PICKUP" name="Name">
-                </div>
-                <div class="form-group">
-                  <input type="text" class="email-bt" placeholder="DROP" name="Email">
-                </div>
-                <div class="form-group">
-                  <input type="text" class="email-bt" placeholder="WHEN" name="Email">
-                </div>
+                <form action="{% url 'order' %}" method="post">
+                {% csrf_token %}
+                {{formfromkairat}}
+                  <div class="send_bt"><button type="submit" >ORDER</button></div>
+
+
                   </form>
                   </div> 
                   </div>
-                <div class="send_bt"><a href="#">SEARCH</a></div>
+
           </div>
           </div>
         </div>
@@ -195,33 +192,17 @@
         <h1 class="our_text">Our <span style="color: #f4db31;">Taxi</span></h1>
         <div class="taxis_section_2">
           <div class="row">
+              {% for i in cars %}
             <div class="col-sm-4">
               <div class="taxi_main">
-                <div class="round_1">01</div>
-                <h2 class="carol_text">CAR 1</h2>
-                <p class="reader_text">act that a reader will be<br> 
+                <div class="round_1">{{ i.id }}</div>
+                <h2 class="carol_text">{{ i.title }}</h2>
+                <p class="reader_text">{{ i.description }}<br>
                 distracted </p>
                 <div class="images_2"><a href="#"><img src="{% static 'images/img-2.png'%}"></a></div>
               </div>
             </div>
-            <div class="col-sm-4">
-              <div class="taxi_main">
-                <div class="round_1">02</div>
-                <h2 class="carol_text">CAR 2</h2>
-                <p class="reader_text">act that a reader will be<br> 
-                distracted </p>
-                <div class="images_2"><img src="{% static 'images/img-2.png'%}"></a></div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="taxi_main">
-                <div class="round_1">03</div>
-                <h2 class="carol_text">CAR 3</h2>
-                <p class="reader_text">act that a reader will be<br> 
-                distracted </p>
-                <div class="images_2"><img src="{% static 'images/img-2.png'%}"></a></div>
-              </div>
-            </div>
+              {% endfor %}
           </div>
         </div>
       </div>
